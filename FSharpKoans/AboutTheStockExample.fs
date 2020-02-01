@@ -60,6 +60,12 @@ module ``about the stock example`` =
 
     [<Koan>]
     let YouGotTheAnswerCorrect() =
-        let result =  __
-        
+        let result = 
+            let diff (opening:string) (closing:string) = abs(float opening - float closing)
+            stockData
+              |> Seq.skip 1
+              |> Seq.map (fun s -> s.Split([|','|]))
+              |> Seq.maxBy (fun arr -> diff arr.[1] arr.[6])
+              |> fun arr -> arr.[0]
+
         AssertEquality "2012-03-13" result
